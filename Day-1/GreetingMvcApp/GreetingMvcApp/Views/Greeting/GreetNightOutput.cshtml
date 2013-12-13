@@ -1,0 +1,21 @@
+﻿<!doctype html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>Greeting</title>
+    <style>
+        .greet {
+            border: 2px solid red;
+            padding: 15px;
+            background-color: lightpink;
+            font-size: 28pt;
+        }
+    </style>
+</head>
+<body>
+    @{
+        var name = (GreetingMvcApp.Models.GreetName)ViewData["greetName"];
+        }
+    <div class='greet'>@name.FirstName @name.LastName</div>
+</body>
+</html>

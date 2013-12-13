@@ -1,0 +1,1 @@
+﻿<!doctype html><html lang='en'><head><meta charset='UTF-8'><title>Greet Input</title></head><body><form action='/Greeting/Greet' method='get'><div><span>First Name:</span><input type='text' name='firstName' id='txtFirstName'></div><div><span>Last Name:</span><input type='text' name='lastName' id='txtLastName'></div><input type='submit' value='Greet'></form></body></html>

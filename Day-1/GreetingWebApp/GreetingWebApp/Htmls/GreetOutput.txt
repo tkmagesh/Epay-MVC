@@ -1,0 +1,1 @@
+﻿<!doctype html><html lang='en'><head>	<meta charset='UTF-8'>	<title>Greeting</title>	<style>	.greet{{		border : 2px solid blue; padding : 15px;		background-color: lightblue;		font-size:28pt;	}}	</style></head><body>	<div class='greet'>{0} {1}</div></body></html>

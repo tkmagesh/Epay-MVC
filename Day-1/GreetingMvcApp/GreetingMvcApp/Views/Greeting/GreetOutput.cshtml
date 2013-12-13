@@ -1,0 +1,36 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>GreetOutput</title>
+    <style>
+        .errorField {
+            border : 2px solid red;
+            background-color : lightpink;
+        }
+
+    </style>
+</head>
+<body>
+    @{
+        var outputModel = (GreetingMvcApp.Models.GreetOutputModel)ViewData["GreetOutput"];
+        }
+     <form action='/Greeting/Greet' method='post'>
+        <div><span>First Name:</span><input type='text' name='firstName' id='txtFirstName' value="@outputModel.firstName" class="@(outputModel.errorMessages.ContainsKey("firstName") ? "errorField" : "")"></div>
+        <div><span>Last Name:</span><input type='text' name='lastName' id='txtLastName' value="@outputModel.lastName" class="@(outputModel.errorMessages.ContainsKey("lastName") ? "errorField" : "")"></div>
+        <input type='submit' value='Greet'></form>
+    <div>
+        @outputModel.greetMessage
+    </div>
+<ul>
+    @foreach(var msg in outputModel.errorMessages){
+        <li>@msg.Value</li>
+    }
+</ul>
+</body>
+</html>
