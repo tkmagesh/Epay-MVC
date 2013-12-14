@@ -1,0 +1,23 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddNew</title>
+</head>
+<body>
+    <h1>New Task</h1>
+    <form action="/Tasks/Save" method="post">
+        <div>
+        <span>Task Name :</span>
+            <input type="text" name="newTask" value="" />
+            <input type="submit" name="submit" value="Save" />
+    </div>
+    </form>
+    
+</body>
+</html>

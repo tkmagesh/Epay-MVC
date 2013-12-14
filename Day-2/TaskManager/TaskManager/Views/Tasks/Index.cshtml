@@ -1,0 +1,37 @@
+﻿
+@using TaskManager.Models;
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style>
+        .completed {
+            color: red;
+            text-decoration: line-through;
+            font-style: italic;
+        }
+
+    </style>
+</head>
+<body>
+    @{
+        var tasks = (List<MyTask>)ViewData["tasks"];
+        }
+    <h1>Tasks</h1>
+    <hr />
+    <a href="/Tasks/AddNew">Add New Task</a>
+    <ul>
+        @foreach(var task in tasks){
+            <li  ><span class="@(task.IsCompleted ? "completed" : "")">@task.Name</span>  <a href="/Tasks/ToggleCompletion?Id=@task.Id">Toggle Completion</a></li>
+            
+        }
+    </ul>
+</body>
+</html>
