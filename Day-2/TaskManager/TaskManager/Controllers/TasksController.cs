@@ -33,10 +33,10 @@ namespace TaskManager.Controllers
         }
 
         public ActionResult Save(string newTask) {
-            var currentTaskId = _tasks.Any() ? _tasks.Max(t => t.Id) + 1 : 1;
+            var newTaskId = _tasks.Any() ? _tasks.Max(t => t.Id) + 1 : 1;
 
             _tasks.Add(new MyTask { 
-                Id = currentTaskId,
+                Id = newTaskId,
                 Name = newTask,
                 IsCompleted = false
             });
@@ -54,6 +54,12 @@ namespace TaskManager.Controllers
             //var viewData = new ViewDataDictionary();
             //viewData.Add("tasks", _tasks);
             //return new ViewResult() { ViewName = "Index", ViewData = viewData };
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult RemoveCompleted()
+        {
+            _tasks = _tasks.Where(t => !t.IsCompleted).ToList();
             return RedirectToAction("Index");
         }
 

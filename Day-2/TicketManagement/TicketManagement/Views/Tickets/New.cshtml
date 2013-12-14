@@ -1,0 +1,38 @@
+﻿@using TicketManagement.Models;
+@model Ticket
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>New</title>
+</head>
+<body>
+    <h1>Ticket</h1>
+    <hr />
+    @using(Html.BeginForm()){
+        <div>
+            <span>Title :</span>
+            @Html.TextBoxFor(m => m.Title)
+        </div>
+         <div>
+            <span>Description :</span>
+            @Html.TextAreaFor(m => m.Description)
+        </div>
+         <div>
+            <span>Type :</span>
+            @Html.DropDownListFor(
+                m => m.Type, 
+                TicketType.GetValues().Select(tt => new SelectListItem{
+                    Value = tt.Key.ToString(), 
+                    Text = tt.Value, Selected = tt.Key == Model.Type.Key}))
+        </div>
+        <input type="Submit" name="submit" value="Save" />
+    }
+</body>
+</html>

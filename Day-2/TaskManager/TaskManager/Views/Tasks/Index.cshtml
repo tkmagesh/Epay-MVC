@@ -21,15 +21,25 @@
     </style>
 </head>
 <body>
+    <h1>Tasks</h1>
+    <hr />
+    
+    <form action="/Tasks/Save" method="post">
+        <div>
+        <span>Task Name :</span>
+            <input type="text" name="newTask" value="" />
+            <input type="submit" name="submit" value="Save" />
+    </div>
+    </form>
+    <a href="/Tasks/RemoveCompleted">Remove Completed</a>
+    <br />
     @{
         var tasks = (List<MyTask>)ViewData["tasks"];
         }
-    <h1>Tasks</h1>
-    <hr />
-    <a href="/Tasks/AddNew">Add New Task</a>
+    
     <ul>
         @foreach(var task in tasks){
-            <li  ><span class="@(task.IsCompleted ? "completed" : "")">@task.Name</span>  <a href="/Tasks/ToggleCompletion?Id=@task.Id">Toggle Completion</a></li>
+            <li  >[@task.Id] <span class="@(task.IsCompleted ? "completed" : "")">@task.Name</span>  <a href="/Tasks/ToggleCompletion?Id=@task.Id">Toggle Completion</a></li>
             
         }
     </ul>
