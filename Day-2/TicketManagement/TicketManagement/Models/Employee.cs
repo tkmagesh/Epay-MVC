@@ -16,5 +16,7 @@ namespace TicketManagement.Models
         [Required]
         public string LastName { get; set; }
 
+        public DateTime DateOfBirth { get; set; }
+
     }
 }

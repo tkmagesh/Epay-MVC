@@ -30,56 +30,71 @@ namespace TicketManagement.Controllers
 
         public ActionResult Create()
         {
-            return View(new Employee());
+            return View("CreateOrEdit", new Employee());
         }
 
         //
         // POST: /Employees/Create
 
-        [HttpPost]
-        public ActionResult Create(Employee employee)
-        {
-            try
-            {
-                if (this.ModelState.IsValid)
-                {
-                    employee.Id = employees.Any() ? employees.Max(e => e.Id) + 1 : 1;
+        //[HttpPost]
+        //public ActionResult Create(Employee employee)
+        //{
+        //    try
+        //    {
+        //        if (this.ModelState.IsValid)
+        //        {
+        //            employee.Id = employees.Any() ? employees.Max(e => e.Id) + 1 : 1;
 
-                    employees.Add(employee);
+        //            employees.Add(employee);
 
-                    return RedirectToAction("Index");
-                }
-                else {
-                    return View(employee);
-                }
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //            return RedirectToAction("Index");
+        //        }
+        //        else {
+        //            return View(employee);
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
 
         //
         // GET: /Employees/Edit/5
 
         public ActionResult Edit(int id)
         {
-            return View(employees.First(e => e.Id == id));
+            return View("CreateOrEdit", employees.First(e => e.Id == id));
         }
 
         //
         // POST: /Employees/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Employee employee)
+        public ActionResult Save(Employee employee)
         {
             try
             {
-                // TODO: Add update logic here
-                var emp = employees.First(e => e.Id == employee.Id);
-                emp.FirstName = employee.FirstName;
-                emp.LastName = employee.LastName;
-                return RedirectToAction("Index");
+                if (this.ModelState.IsValid)
+                {
+                    if (employee.Id == 0)
+                    {
+                        employee.Id = employees.Any() ? employees.Max(e => e.Id) + 1 : 1;
+                        employees.Add(employee);
+                    }
+                    else
+                    {
+                        // TODO: Add update logic here
+                        var emp = employees.First(e => e.Id == employee.Id);
+                        emp.FirstName = employee.FirstName;
+                        emp.LastName = employee.LastName;
+                    }
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View(employee);
+                }
             }
             catch
             {

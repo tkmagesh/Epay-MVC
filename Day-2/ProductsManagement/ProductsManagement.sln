@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductsManagement", "ProductsManagement\ProductsManagement.csproj", "{CA6D7864-9F4F-4C7F-A5F5-B74066C71B88}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CA6D7864-9F4F-4C7F-A5F5-B74066C71B88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA6D7864-9F4F-4C7F-A5F5-B74066C71B88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA6D7864-9F4F-4C7F-A5F5-B74066C71B88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA6D7864-9F4F-4C7F-A5F5-B74066C71B88}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

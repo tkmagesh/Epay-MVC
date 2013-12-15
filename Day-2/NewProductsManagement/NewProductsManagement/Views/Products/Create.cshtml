@@ -1,0 +1,16 @@
+﻿@model NewProductsManagement.Models.ViewModels.CreateProductVM
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("CreateNew",Model.Product)
+
+@Html.Partial("Index", Model.Products)
+   
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
