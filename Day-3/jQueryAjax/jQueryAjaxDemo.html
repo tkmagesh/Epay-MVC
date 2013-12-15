@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery Ajax Demo</title>
+	<script src="jquery-1.8.2.js"></script>
+	<script src="handlebars-v1.1.2.js"></script>
+	<style>
+	table {
+		border : 1px solid black;
+
+	}
+	tr {
+		padding: 2px;
+	}
+	td {
+		padding: 5px;
+	}
+	</style>
+	<script>
+	(function(){
+		$(function(){
+			$("#btnLoad").click(function(){
+				$("#divPlaceholder").load("serverHTML.html");
+			});
+			$("#btnGetHtml").click(function(){
+				$.get("serverHTML.html",function(response){
+					$("#divPlaceholder").html(response);	
+				},"html");
+			});
+
+			$("#btnGetProducts").click(function(){
+				$.get("products.json",function(products){
+					
+					/*var htmlFragement = "<table>";
+					$(products).each(function(){
+						console.log(this);
+						htmlFragement += "<tr>";
+						htmlFragement += "<td>" + this.id + "</td>";
+						htmlFragement += "<td>" + this.name + "</td>";
+						htmlFragement += "<td>" + this.price + "</td>";
+						htmlFragement += "</tr>";
+
+					});
+					htmlFragement += "</table>";
+					$("#productsList").html(htmlFragement);
+					*/
+					var source   = $("#productsTableTemplate").html();
+					var template = Handlebars.compile(source);
+					$("#productsList").html(template(products));
+				},"json");
+			});
+			$("#btnGetProductsUsingAjax").click(function(){
+				$.ajax({
+					url : "products.json",
+					dataType: "json",
+					type : "get",
+					success : function(response){
+						var source   = $("#productsTableTemplate").html();
+						var template = Handlebars.compile(source);
+						$("#productsList").html(template(response));
+					}
+				});
+			});
+		});
+
+	})();
+	</script>
+
+	<script type="text/x-handlebars-template" id="productsTableTemplate">
+		<table>
+		{{#each products}}
+		<tr>
+		<td>{{id}}</td>
+		<td>{{name}}</td>
+		<td>{{price}}</td>
+		</tr>
+		{{/each}}
+		</table>
+	</script>
+</head>
+<body>
+	<input type="button" value="Load Server HTML" id="btnLoad">
+	<input type="button" value="Server HTML - using Get" id="btnGetHtml">
+	<input type="button" value="Get Products" id="btnGetProducts">
+	<input type="button" value="Get Products using 1.ajax" id="btnGetProductsUsingAjax">
+	<div id="divPlaceholder"></div>
+	<div id="productsList"></div>
+</body>
+</html>
