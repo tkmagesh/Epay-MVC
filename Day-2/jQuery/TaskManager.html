@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Task Manager</title>
+	<style>
+		h1 {
+			margin: 10px 0px;
+			margin-top: 5px;
+			margin-bottom: 15px;
+			padding: 10px 10px;
+			border-top: 2px solid blue;
+			border-bottom: 2px solid blue;
+			background-color: lightblue;
+		}
+		#ulTaskList li{
+			list-style: none;
+			margin-top: 5px;
+			margin-bottom: 5px;
+			padding: 2px;
+			border: 1px solid gray;
+			background-color: lightgray;
+			width: 300px;
+			cursor: pointer;
+		}
+		#ulTaskList li.completed {
+			font-style: italic;
+			text-decoration: line-through;
+			color: red;
+			border-color: red;
+			background-color: white;
+		}
+		.hint{
+			color : gray;
+			font-style: italic;
+		}
+	</style>
+	<script>
+	(function(){
+		function addTask(){
+		  var txtTask = document.getElementById("txtTask");
+		  var newTaskItem = document.createElement("li");
+		  newTaskItem.innerText = txtTask.value;
+		  newTaskItem.addEventListener("click",onTaskItemClick);
+		  document.getElementById("ulTaskList").appendChild(newTaskItem);
+		  displayMessage("A new task is added");
+		}
+
+		function initialize(){
+			var btnAddTask = document.getElementById("btnAdd");
+			btnAddTask.addEventListener("click",addTask);
+			document.getElementById("btnRemove").onclick = onRemoveCompletedClick;
+			initializeTaskHandlers();
+			var txtTask = document.getElementById("txtTask");
+			txtTask.addEventListener("focus",onTxtTaskFocus);
+			txtTask.addEventListener("blur",onTxtTaskBlur);
+			txtTask.classList.add('hint');
+			txtTask.value = 'Enter the Task';
+		}
+		function displayMessage(msg){
+			var divMessage = document.getElementById("divMessage");
+			divMessage.style.opacity = 1;
+			divMessage.innerText = msg;
+			setTimeout(function(){
+				var currentOpacity = 1;
+				function reduceOpacity(){
+					divMessage.style.opacity = currentOpacity;
+					currentOpacity -= 0.05;
+					if (currentOpacity > 0){
+						setTimeout(reduceOpacity,20)
+					} else {
+						divMessage.style.opacity = 0;
+					}
+				}
+				reduceOpacity();
+			},3000);
+		}
+		function initializeTaskHandlers(){
+			var allListItems = document.querySelectorAll("#ulTaskList li");
+			/*myLib.each(allListItems, function(){
+				this.addEventListener("click",onTaskItemClick);	
+			});*/
+			for(var i=0;i<allListItems.length;i++)
+			  allListItems[i].addEventListener("click",onTaskItemClick);
+		}
+		function onTaskItemClick(){
+			if (this.classList.contains("completed")){
+				this.classList.remove("completed");
+			} else {
+				this.classList.add("completed");
+			}
+		}
+		function onRemoveCompletedClick(){
+			var allTaskItems = document.querySelectorAll("#ulTaskList li.completed");
+			for(var i=0;i<allTaskItems.length;i++){
+					allTaskItems[i].remove();
+			}
+		}
+
+		function onTxtTaskFocus(){
+			if (this.classList.contains("hint")){
+				this.classList.remove("hint");
+				this.value = '';
+			}
+		}
+		function onTxtTaskBlur(){
+			if (this.value === ''){
+				this.classList.add("hint");
+				this.value = 'Enter the task';
+			}
+		}
+		window.addEventListener("DOMContentLoaded",initialize);
+	}());
+
+	</script>
+</head>
+<body>
+	<h1>Task Manager</h1>
+	<span>Task :</span>
+	<input type="text" name="" id="txtTask">
+	<input type="button" value="Add Task" id="btnAdd">
+	<input type="button" value="Remove Completed" id="btnRemove">
+	<ul id="ulTaskList">
+		<li class="something">Task -1</li>
+		<li>Task -2</li>
+		<li>Task -3</li>
+	</ul>
+	<div id="divMessage"></div>
+</body>
+</html>
