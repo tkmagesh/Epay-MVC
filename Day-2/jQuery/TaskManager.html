@@ -35,81 +35,52 @@
 			font-style: italic;
 		}
 	</style>
+	<script src="jquery-1.8.2.js"></script>
 	<script>
 	(function(){
 		function addTask(){
-		  var txtTask = document.getElementById("txtTask");
-		  var newTaskItem = document.createElement("li");
-		  newTaskItem.innerText = txtTask.value;
-		  newTaskItem.addEventListener("click",onTaskItemClick);
-		  document.getElementById("ulTaskList").appendChild(newTaskItem);
+		  $("<li>")
+		  	.text($("#txtTask").val())
+		  	.click(onTaskItemClick)
+		    .appendTo("#ulTaskList");
+
 		  displayMessage("A new task is added");
 		}
 
-		function initialize(){
-			var btnAddTask = document.getElementById("btnAdd");
-			btnAddTask.addEventListener("click",addTask);
-			document.getElementById("btnRemove").onclick = onRemoveCompletedClick;
+		$(function(){
+			$("#btnAdd").click(addTask);
+			$("#btnRemove").click(onRemoveCompletedClick);
 			initializeTaskHandlers();
-			var txtTask = document.getElementById("txtTask");
-			txtTask.addEventListener("focus",onTxtTaskFocus);
-			txtTask.addEventListener("blur",onTxtTaskBlur);
-			txtTask.classList.add('hint');
-			txtTask.value = 'Enter the Task';
-		}
+			$("#txtTask")
+				.val('Enter the Task')
+				.addClass('hint')
+				.focus(onTxtTaskFocus)
+				.blur(onTxtTaskBlur);
+		})
 		function displayMessage(msg){
-			var divMessage = document.getElementById("divMessage");
-			divMessage.style.opacity = 1;
-			divMessage.innerText = msg;
-			setTimeout(function(){
-				var currentOpacity = 1;
-				function reduceOpacity(){
-					divMessage.style.opacity = currentOpacity;
-					currentOpacity -= 0.05;
-					if (currentOpacity > 0){
-						setTimeout(reduceOpacity,20)
-					} else {
-						divMessage.style.opacity = 0;
-					}
-				}
-				reduceOpacity();
-			},3000);
+			$("#divMessage").hide().text(msg).show().delay(3000).fadeOut('slow');
 		}
 		function initializeTaskHandlers(){
-			var allListItems = document.querySelectorAll("#ulTaskList li");
-			/*myLib.each(allListItems, function(){
-				this.addEventListener("click",onTaskItemClick);	
-			});*/
-			for(var i=0;i<allListItems.length;i++)
-			  allListItems[i].addEventListener("click",onTaskItemClick);
+			$("#ulTaskList > li").click(onTaskItemClick);
 		}
 		function onTaskItemClick(){
-			if (this.classList.contains("completed")){
-				this.classList.remove("completed");
-			} else {
-				this.classList.add("completed");
-			}
+			$(this).toggleClass("completed");
 		}
 		function onRemoveCompletedClick(){
-			var allTaskItems = document.querySelectorAll("#ulTaskList li.completed");
-			for(var i=0;i<allTaskItems.length;i++){
-					allTaskItems[i].remove();
-			}
+			$("#ulTaskList li.completed").remove();
 		}
 
 		function onTxtTaskFocus(){
-			if (this.classList.contains("hint")){
-				this.classList.remove("hint");
-				this.value = '';
-			}
+			$(this).filter(".hint").removeClass("hint").val('');
 		}
 		function onTxtTaskBlur(){
-			if (this.value === ''){
-				this.classList.add("hint");
-				this.value = 'Enter the task';
+			var $this = $(this);
+			if ($this.val() === ''){
+				$this.addClass("hint");
+				$this.val('Enter the task');
 			}
 		}
-		window.addEventListener("DOMContentLoaded",initialize);
+		
 	}());
 
 	</script>
